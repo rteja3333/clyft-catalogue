@@ -31,6 +31,7 @@ function App() {
   const [deleting, setDeleting] = useState(false);
   const [showBackupConfirm, setShowBackupConfirm] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [showSafetyTips, setShowSafetyTips] = useState(false);
 
   function useCategoryGridResponsiveStyle() {
     useEffect(() => {
@@ -252,6 +253,15 @@ function App() {
     setShowBackupConfirm(false);
   };
 
+  // Safety tips functionality
+  const handleSafetyTips = () => {
+    setShowSafetyTips(true);
+  };
+
+  const closeSafetyTips = () => {
+    setShowSafetyTips(false);
+  };
+
   const handlePasscodeSubmit = async (input: string) => {
     setAuthenticating(true);
     setPasscodeError(undefined);
@@ -331,6 +341,23 @@ function App() {
                   }}
                 >
                   📥 Download Backup
+                </Button>
+                <Button 
+                  type="default"
+                  onClick={handleSafetyTips}
+                  style={{
+                    background: 'linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%)',
+                    border: 'none',
+                    color: 'white',
+                    fontWeight: 600,
+                    borderRadius: 8,
+                    boxShadow: '0 2px 8px 0 rgba(245,158,11,0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8
+                  }}
+                >
+                  🛡️ Safety Tips
                 </Button>
               </div>
               <div
@@ -619,6 +646,301 @@ function App() {
                   >
                     {downloading ? 'Downloading...' : 'Download Backup'}
                   </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Safety Tips Modal */}
+          {showSafetyTips && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0,0,0,0.6)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10000,
+                backdropFilter: 'blur(8px)'
+              }}
+            >
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: 20,
+                  padding: '32px 36px',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                  maxWidth: 600,
+                  width: '90%',
+                  maxHeight: '80vh',
+                  overflowY: 'auto'
+                }}
+              >
+                {/* Header */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: 24
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12
+                  }}>
+                    <div style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 8px 25px rgba(245, 158, 11, 0.3)'
+                    }}>
+                      🛡️
+                    </div>
+                    <div>
+                      <h2 style={{
+                        fontSize: 24,
+                        fontWeight: 700,
+                        color: '#1f2937',
+                        margin: 0,
+                        letterSpacing: 0.5
+                      }}>
+                        Safety Tips & Best Practices
+                      </h2>
+                      <p style={{
+                        fontSize: 14,
+                        color: '#6b7280',
+                        margin: '4px 0 0 0'
+                      }}>
+                        Essential guidelines for safe data management
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={closeSafetyTips}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontSize: 24,
+                      color: '#9ca3af',
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      width: 36,
+                      height: 36,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = '#f3f4f6';
+                      e.currentTarget.style.color = '#374151';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'none';
+                      e.currentTarget.style.color = '#9ca3af';
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* Tips Content */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                  
+                  {/* Backup Safety */}
+                  <div style={{
+                    background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(248, 113, 113, 0.05) 100%)',
+                    border: '1px solid rgba(239, 68, 68, 0.1)',
+                    borderRadius: 12,
+                    padding: 20
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      marginBottom: 12
+                    }}>
+                      <span style={{ fontSize: 20 }}>📥</span>
+                      <h3 style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        color: '#dc2626',
+                        margin: 0
+                      }}>
+                        Backup Safety
+                      </h3>
+                    </div>
+                    <ul style={{
+                      fontSize: 14,
+                      color: '#374151',
+                      lineHeight: 1.6,
+                      margin: 0,
+                      paddingLeft: 20
+                    }}>
+                      <li><strong>Always download backup before making major changes</strong></li>
+                      <li>Store backups in a safe location (cloud storage, external drive)</li>
+                      <li>Regular backups prevent data loss during system updates</li>
+                      <li>Backup filename includes timestamp for easy identification</li>
+                    </ul>
+                  </div>
+
+                  {/* Deletion Warning */}
+                  <div style={{
+                    background: 'linear-gradient(135deg, rgba(245, 101, 101, 0.05) 0%, rgba(248, 113, 113, 0.05) 100%)',
+                    border: '1px solid rgba(245, 101, 101, 0.1)',
+                    borderRadius: 12,
+                    padding: 20
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      marginBottom: 12
+                    }}>
+                      <span style={{ fontSize: 20 }}>⚠️</span>
+                      <h3 style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        color: '#dc2626',
+                        margin: 0
+                      }}>
+                        Deletion Warnings
+                      </h3>
+                    </div>
+                    <ul style={{
+                      fontSize: 14,
+                      color: '#374151',
+                      lineHeight: 1.6,
+                      margin: 0,
+                      paddingLeft: 20
+                    }}>
+                      <li><strong>Deleting a category removes ALL items within it</strong></li>
+                      <li>This action cannot be undone - ensure you have backups</li>
+                      <li>Double-check category contents before deletion</li>
+                      <li>Consider moving items to another category first</li>
+                    </ul>
+                  </div>
+
+                  {/* Data Entry Best Practices */}
+                  <div style={{
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(96, 165, 250, 0.05) 100%)',
+                    border: '1px solid rgba(59, 130, 246, 0.1)',
+                    borderRadius: 12,
+                    padding: 20
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      marginBottom: 12
+                    }}>
+                      <span style={{ fontSize: 20 }}>📝</span>
+                      <h3 style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        color: '#2563eb',
+                        margin: 0
+                      }}>
+                        Data Entry Guidelines
+                      </h3>
+                    </div>
+                    <ul style={{
+                      fontSize: 14,
+                      color: '#374151',
+                      lineHeight: 1.6,
+                      margin: 0,
+                      paddingLeft: 20
+                    }}>
+                      <li><strong>Item names must be unique</strong> within each category</li>
+                      <li><strong>Category names should be distinct</strong> and descriptive</li>
+                      <li>Use clear, consistent naming conventions</li>
+                      <li>Image fields accept any string (URLs, file paths, or identifiers)</li>
+                      <li>Set appropriate visibility status for each item</li>
+                      <li>Use variant types (0-3) to organize product variations</li>
+                    </ul>
+                  </div>
+
+                  {/* Pricing Guidelines */}
+                  <div style={{
+                    background: 'linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%)',
+                    border: '1px solid rgba(5, 150, 105, 0.1)',
+                    borderRadius: 12,
+                    padding: 20
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      marginBottom: 12
+                    }}>
+                      <span style={{ fontSize: 20 }}>₹</span>
+                      <h3 style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        color: '#059669',
+                        margin: 0
+                      }}>
+                        Pricing Best Practices
+                      </h3>
+                    </div>
+                    <ul style={{
+                      fontSize: 14,
+                      color: '#374151',
+                      lineHeight: 1.6,
+                      margin: 0,
+                      paddingLeft: 20
+                    }}>
+                      <li><strong>Price field appears only when variant types = 0</strong></li>
+                      <li>For items with variants, pricing is handled within variant tiers</li>
+                      <li>Always enter prices in rupees (₹) format</li>
+                      <li>Ensure price consistency across similar items</li>
+                      <li>Review pricing before making items visible to customers</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                {/* Footer */}
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: 28,
+                  paddingTop: 20,
+                  borderTop: '1px solid rgba(0,0,0,0.1)'
+                }}>
+                  <Button
+                    type="primary"
+                    onClick={closeSafetyTips}
+                    size="large"
+                    style={{
+                      background: 'linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%)',
+                      border: 'none',
+                      borderRadius: 10,
+                      fontWeight: 600,
+                      paddingLeft: 32,
+                      paddingRight: 32,
+                      boxShadow: '0 4px 15px rgba(245, 158, 11, 0.3)'
+                    }}
+                  >
+                    Got It! 👍
+                  </Button>
+                  <p style={{
+                    fontSize: 12,
+                    color: '#9ca3af',
+                    margin: '12px 0 0 0',
+                    fontStyle: 'italic'
+                  }}>
+                    🔒 Keep these tips in mind for safe data management
+                  </p>
                 </div>
               </div>
             </div>
