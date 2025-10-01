@@ -1,8 +1,5 @@
 // components/CategoryTable.tsx
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
-import { db } from '../firebase';
-import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { ItemFormModal } from './ItemModal';
 
 interface CategoryTableProps {

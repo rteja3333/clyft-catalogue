@@ -21,12 +21,6 @@ const icons = [
 ];
 
 const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ categories, items }) => {
-  // Calculate total variants
-  const totalVariants = items.reduce((acc, item) => {
-    if (Array.isArray(item.variants)) return acc + item.variants.length;
-    return acc;
-  }, 0);
-
   // Animation: fade in and slight up
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => { setMounted(true); }, []);
